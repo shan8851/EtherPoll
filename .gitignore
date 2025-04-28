@@ -1,3 +1,6 @@
+**/node_modules/
+
+
 # Compiler files
 cache/
 out/
@@ -15,3 +18,9 @@ docs/
 .env
 /*.secret
 /*.key
+
+
+# Subgraph build outputs & deps
+/subgraph/node_modules/
+/subgraph/build/
+/subgraph/generated/   # if you’d rather regenerate on CI/dev

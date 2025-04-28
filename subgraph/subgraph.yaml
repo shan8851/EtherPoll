@@ -1,0 +1,28 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+
+dataSources:
+  - kind: ethereum/contract
+    name: EtherPoll
+    network: local
+    source:
+      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+      abi: EtherPoll
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Topic
+        - Vote
+      abis:
+        - name: EtherPoll
+          file: ./abis/EtherPoll.json
+      eventHandlers:
+        - event: TopicCreated(indexed uint256,indexed address,string,uint256)
+          handler: handleTopicCreated
+        - event: VoteCast(indexed uint256,indexed address,bool)
+          handler: handleVoteCast
+      file: ./src/mapping.ts
+
