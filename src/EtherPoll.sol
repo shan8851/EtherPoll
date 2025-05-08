@@ -52,9 +52,7 @@ contract EtherPoll {
         topicId = nextTopicId++;
         uint256 endDate = block.timestamp + duration;
 
-        topics[topicId] = Topic({
-            creator: msg.sender, metadataCid: cid, endTimestamp: endDate, yesVotes: 0, noVotes: 0
-        });
+        topics[topicId] = Topic({creator: msg.sender, metadataCid: cid, endTimestamp: endDate, yesVotes: 0, noVotes: 0});
 
         emit TopicCreated(topicId, msg.sender, cid, endDate);
     }
