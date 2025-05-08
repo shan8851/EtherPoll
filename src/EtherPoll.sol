@@ -45,14 +45,16 @@ contract EtherPoll {
     /// @param   cid      The IPFS CID of a JSON file containing `title`, `description`, `links`, etc.
     /// @param   duration How long (in seconds) this topic should remain open (max. 90 days)
     /// @return  topicId  ID of the created topic
-    function createTopic(string memory cid, uint256 duration) external returns (uint256 topicId) {
+    function createTopic(string calldata cid, uint256 duration) external returns (uint256 topicId) {
         if (bytes(cid).length == 0) revert EmptyCID();
         if (duration <= 0 || duration > 90 days) revert DurationOutOfRange();
 
         topicId = nextTopicId++;
         uint256 endDate = block.timestamp + duration;
 
-        topics[topicId] = Topic({creator: msg.sender, metadataCid: cid, endTimestamp: endDate, yesVotes: 0, noVotes: 0});
+        topics[topicId] = Topic({
+            creator: msg.sender, metadataCid: cid, endTimestamp: endDate, yesVotes: 0, noVotes: 0
+        });
 
         emit TopicCreated(topicId, msg.sender, cid, endDate);
     }
